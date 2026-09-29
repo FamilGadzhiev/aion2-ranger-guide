@@ -1,0 +1,91 @@
+{
+  "base_url": "https://familgadzhiev.github.io/aion2-ranger-guide/",
+  "langs": [
+    "en",
+    "ru"
+  ],
+  "launch_utc": "2026-10-05T13:00:00Z",
+  "_weekly_reset": "Weekly reset: anchor + every 7 days. Anchor is Early Access start until NC confirms the real weekly reset time.",
+  "weekly_reset": {
+    "anchor": "2026-09-30T13:00:00Z",
+    "confirmed": false
+  },
+  "_energy": "Odyle energy defaults (EU test client): +15 every 180 min, base cap 840. Players can edit value and cap per character.",
+  "energy": {
+    "regen": 15,
+    "interval_min": 180,
+    "cap": 840,
+    "chest": 40
+  },
+  "_art": "art_pos: where the figure stands in its render (x y, CSS object-position); x also centres the pop-out figure on home cards. art_up: lift the pop-out figure (share of the image height).",
+  "_src": "classes[].src: per guide mode, [who the info comes from, date it was checked]; shown in the class hero.",
+  "repo": "https://github.com/FamilGadzhiev/aion2-ranger-guide",
+  "_events": "Home timers. at=null -> 'date TBA'. confirmed=false -> date is official, hour is not. celebrate=true -> the site celebrates when it starts (assets/js/celebrate.js, once per visitor within 24 h; ?celebrate=1 previews it).",
+  "events": [
+    {
+      "id": "pre_founder",
+      "access": "founder",
+      "at": "2026-09-28T13:00:00Z",
+      "confirmed": true
+    },
+    {
+      "id": "early",
+      "access": "founder",
+      "at": "2026-09-30T13:00:00Z",
+      "confirmed": true,
+      "celebrate": true
+    },
+    {
+      "id": "launch",
+      "access": "all",
+      "at": "2026-10-05T13:00:00Z",
+      "confirmed": true
+    }
+  ],
+  "updated": "2026-09-29",
+  "classes": [
+    {
+      "slug": "ranger",
+      "status": "ready",
+      "src": {
+        "pve": [
+          "Whelps",
+          "2026-09-28"
+        ],
+        "lvl": [
+          "TitanTheF · Grobs",
+          "2026-09-28"
+        ],
+        "pvp": [
+          "Vortex Gaming (KR) · client data",
+          "2026-09-29"
+        ]
+      },
+      "updated": "2026-09-29",
+      "patch": null,
+      "accent": "emerald",
+      "art_pos": "28% 6%",
+      "art_up": "4%",
+      "name": {
+        "en": "Ranger",
+        "ru": "Лучник"
+      },
+      "role": {
+        "en": "Ranged DPS · kiter",
+        "ru": "Дальний бой · кайт"
+      },
+      "weapon": {
+        "en": "Bow",
+        "ru": "Лук"
+      },
+      "difficulty": 2,
+      "pitch": {
+        "en": "20-metre burst built on buffs, charged Deadshots and bleeds — and the best zoning tools in PvP.",
+        "ru": "Урон с 20 метров на баффах, заряженных Прицельных выстрелах и кровотечениях — и лучший контроль дистанции в PvP."
+      },
+      "wip_modes": [
+        "pvp"
+      ]
+    }
+  ]
+}

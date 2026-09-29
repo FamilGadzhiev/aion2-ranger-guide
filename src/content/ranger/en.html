@@ -1,0 +1,273 @@
+{% from "macros.html" import section, skill, core, loadout, passives, glance, hotline, macroseq with context %}
+
+{# ============================== PvE ============================== #}
+{% call glance('pve') %}
+  <h3>{{ t.core_skills }}</h3>
+  {{ core([('deadshot', '20'), ('gale-arrow', '20'), ('drill-dart', '16'), ('snipe', '16'), ('tempest-shot', '16')]) }}
+  <h3>{{ t.stigma_loadout }}</h3>
+  {{ loadout([('vaizels-authority', 20), ('bow-of-blessing', 10), ('supporting-fire', 10), ('griffon-arrow', 10)]) }}
+  <h3>{{ t.key_passives }}</h3>
+  {{ passives(['focused-eye', 'hunters-resolve', 'hunters-soul', 'concentrated-fire']) }}
+{% endcall %}
+
+{% call section('intro', 'Overview', 'pve') %}
+  <p>The Ranger is a bow DPS that fights from about <strong>20 metres</strong> — the range of almost every skill it has. Its damage is top-tier, but survivability and utility are low, so positioning is everything.</p>
+  <div class="callout accent">
+    <h3>The build in one sentence</h3>
+    <p>Buff up, keep {{ s('marking-shot') }} (Precision: +300 Critical Hit and +35% {{ s('deadshot', False) }} damage) on the target, and hold three buttons: {{ s('snipe') }}, the macro and a charged {{ s('deadshot') }}.</p>
+  </div>
+  <p class="note">This guide follows Whelps — a Ranger main at 1M CP on the Korean servers who also played the global test — and his Season 1 endgame PvE build on questlog.</p>
+{% endcall %}
+
+{% call section('global', 'Global Season 1: what changes', 'pve pvp') %}
+  <p>Global servers open on <strong>October 5, 2026</strong> (Founder's early access from September 30). What that means for the Ranger:</p>
+  <div class="callout">
+    <ul>
+      <li><strong>Four stigmas at level 37.</strong> The global test stopped at 37; a fifth slot at 45 is likely but not confirmed — if it comes, it goes to {{ s('explosive-arrow') }}.</li>
+      <li><strong>Only a few skills reach 20.</strong> Skills cap at 10 from points; Daevanion adds 4, rings 2 and arcana up to 4. In Season 1 plan for Deadshot and Gale Arrow at 20, and a third one if your arcana roll well.</li>
+      <li><strong>Accuracy cap unknown.</strong> In Korea it was about 1,300 for Ludra; global numbers come at launch.</li>
+      <li data-only="pvp"><strong>PvP:</strong> everyone starts on the same limited gear and no meta has formed yet.</li>
+    </ul>
+  </div>
+{% endcall %}
+
+{% call section('skills', 'Skills', 'pve') %}
+  <p>Specialization slots open at <strong>8</strong>, <strong>12</strong> and <strong>20</strong> (16 adds a new option but no slot) — every one of those levels is a power spike. Level actives first, passives after.</p>
+  <ul class="skill-grid">
+    {% call skill('deadshot', 'must', '20', [1, 2, 4]) %}Charged nuke — always fully charged, always under Precision. Before 20 take the first two; swap the mobile pick for the +50% damage one if you don't need to move while charging.{% endcall %}
+    {% call skill('gale-arrow', 'must', '20', [2, 3, 4]) %}Combat Speed and damage buff. Before 20 take the mobile pick and −10s cooldown (or damage instead of mobility).{% endcall %}
+    {% call skill('drill-dart', 'must', '16', [4, 2]) %}At least 16. For a boss that needs sustain, take the HP absorb instead of Skill Speed.{% endcall %}
+    {% call skill('snipe', 'must', '16', [3, 4]) %}Basic attack: shortens Deadshot and adds the Tempest Arrow chain. At 20 add Multi-Hit.{% endcall %}
+    {% call skill('tempest-shot', 'must', '16', [2, 4]) %}Top damage contributor, but 16 is enough — you'll be crit-capped anyway. PvP players push it to 20 for the knockback.{% endcall %}
+    {% call skill('snare-shot', 'opt', '12', [1, 2]) %}12 comes almost free from the Daevanion board.{% endcall %}
+    {% call skill('marking-shot', 'opt', '12', [0, 2]) %}+5% Perfect Chance, +5s duration.{% endcall %}
+    {% call skill('burst-arrow', 'opt', '12', [2, 3]) %}At 20 take the last pick too.{% endcall %}
+    {% call skill('explosion-trap', 'opt', '12', [0, 2]) %}Only for pulling trash together (e.g. Transcendence runs).{% endcall %}
+    {% call skill('suppressing-arrow', 'opt', '12', [0, 2]) %}Only for its stun — fine while leveling, unused in endgame PvE.{% endcall %}
+    {% call skill('defiance', 'opt', '12', [2, 1]) %}At 16: the third and fifth picks.{% endcall %}
+    {% call skill('arrow-scattershot', 'skip', 'skip') %}Only usable on Staggered bosses, and your normal rotation does more — don't level it.{% endcall %}
+  </ul>
+{% endcall %}
+
+{% call section('passives', 'Passives', 'pve') %}
+  <p>{{ s('focused-eye') }} (damage boost) and {{ s('hunters-resolve') }} (crit damage) are the only ones that really matter; {{ s('hunters-soul') }} is third.</p>
+  <div class="callout"><ul>
+    <li>Then the offensive ones: {{ s('concentrated-fire') }}, {{ s('rooting-eye') }}, {{ s('melee-fire') }}.</li>
+    <li>Then {{ s('vigilant-eye') }} (Max HP) and {{ s('revitalization-contract') }} (heal at 10% HP).</li>
+    <li>{{ s('unyielding-resolve') }} and {{ s('wind-vigor') }} are nearly useless — level them with leftover points.</li>
+  </ul></div>
+{% endcall %}
+
+{% call section('gear', 'Gear & soul binds', 'pve') %}
+  <p>Gear is simple: go for the highest item level. Endgame means crafted weapon, guard and accessories, Ludra bracelets and dungeon armor.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Slot</th><th>Must-have soul binds</th></tr></thead>
+    <tbody>
+      <tr><td>Weapon, guard</td><td>Combat Speed, Weapon Damage Boost, Damage Boost, Might (+ Multi-Hit if crafted)</td></tr>
+      <tr><td>Helm, cloak</td><td>Double Chance, Attack Increase</td></tr>
+      <tr><td>Shoulders</td><td>Double Chance, Critical Damage Boost</td></tr>
+      <tr><td>Chest</td><td>Damage Boost</td></tr>
+      <tr><td>Legs</td><td>Attack Increase, Damage Tolerance</td></tr>
+      <tr><td>Gloves / boots</td><td>Combat Speed / Move Speed</td></tr>
+      <tr><td>Earrings / necklace</td><td>Move Speed + Might / Combat Speed + Might</td></tr>
+      <tr><td>Rings</td><td>{{ s('deadshot') }} and {{ s('gale-arrow') }} levels (then Drill Dart or Snipe); otherwise Might</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><ul>
+    <li><strong>Accuracy is the second stat.</strong> Parried hits lose over half their damage, and a Ranger can't always attack from behind. Aim for ~1,100–1,200 (supports add +100).</li>
+    <li>Remaining slots: Attack, Critical Hit or Focused Eye — keep whichever you rolled first. Critical Hit is easier to cap for a Ranger (+300 from Marking Shot).</li>
+    <li><strong>Manastones:</strong> one yellow Attack line is enough for Season 1; don't chase front/back attack sets.</li>
+    <li>Only roll soul binds on armor that already has one of the must-haves.</li>
+  </ul></div>
+{% endcall %}
+
+{% call section('arcana', 'Arcana', 'pve') %}
+  <p>Arcana are how skills get past 16. The goal is <strong>+4 on {{ s('deadshot') }} and {{ s('gale-arrow') }}</strong>; a +4 roll on {{ s('snipe') }} gives you a third skill at 20.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Card</th><th>Type</th><th>Roll for</th></tr></thead>
+    <tbody>
+      <tr><td>Grail</td><td>Vigor</td><td>Deadshot, Gale Arrow (wild card: can roll anything)</td></tr>
+      <tr><td>Parchment</td><td>Vigor</td><td>Snipe, Tempest Shot (Drill Dart, Burst Arrow as filler)</td></tr>
+      <tr><td>Compass</td><td>Death or Freedom</td><td>Deadshot, Gale Arrow</td></tr>
+      <tr><td>Bell</td><td>Destruction</td><td>Hunter's Resolve</td></tr>
+      <tr><td>Mirror</td><td>Wisdom</td><td>Focused Eye</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Arcana come from Transcendence stage 4 and are pure RNG — don't stress; the system is likely to change in Season 2.</p>
+{% endcall %}
+
+{% call section('daevanion', 'Daevanion boards', 'pve pvp') %}
+  <p>You'll eventually fill almost every board, so don't over-plan. Each blue node gives <strong>+1 level</strong> to its skill.</p>
+  <div class="callout"><ul>
+    <li data-only="pve"><strong>1.</strong> Blue nodes that take actives to 12 (unlocks their second specialization): {{ s('deadshot') }}, {{ s('snipe') }}, {{ s('gale-arrow') }}, {{ s('drill-dart') }}, {{ s('burst-arrow') }}.</li>
+    <li data-only="pve"><strong>2.</strong> Offensive orange nodes in the board corners — Combat Speed, cooldown reduction. Take the shortest path and grab skills on the way.</li>
+    <li data-only="pve"><strong>3.</strong> Attack, Critical Hit, {{ s('focused-eye') }} and {{ s('hunters-resolve') }} nodes; then the rest (defense: Defense, HP, Crit Resist).</li>
+    <li data-only="pve">At the very end, route around MP+50 nodes. Resetting a board is cheap.</li>
+    <li data-only="pvp"><strong>Priority:</strong> blue nodes for {{ s('deadshot') }}, {{ s('snare-shot') }}, {{ s('suppressing-arrow') }}, {{ s('marking-shot') }}, {{ s('defiance') }}.</li>
+    <li data-only="pve"><strong>Ariel, not Azphel</strong> at 45.</li>
+    <li data-only="pvp"><strong>Azphel, not Ariel</strong>, and Triniel earlier.</li>
+  </ul></div>
+{% endcall %}
+
+{% call section('stigmas', 'Stigmas', 'pve') %}
+  <p>Level them evenly first — 5 / 5 / 5, then 10 — to hit each breakpoint. Once you have the points for <strong>Vaizel's Authority 20</strong>, reset and put it there first: that's when the Ranger clicks. Then Bow of Blessing, Supporting Fire and Griffon Arrow to 20 in turn.</p>
+  <ul class="skill-grid">
+    {% call skill('vaizels-authority', 'must', 'Lv 20', upto=20) %}×1.5 Focused Eye and Hunter's Soul; at 20 every crit has a 50% chance to cut <em>all</em> cooldowns by 1s — a huge DPS jump.{% endcall %}
+    {% call skill('bow-of-blessing', 'must', 'Lv 10 → 20', upto=20) %}Multi-Hit, Attack from crit, Critical Damage and Double Chance.{% endcall %}
+    {% call skill('supporting-fire', 'must', 'Lv 10 → 20', upto=20) %}An orb that shoots alongside you; same cooldown as Vaizel's, so they can share a button.{% endcall %}
+    {% call skill('griffon-arrow', 'must', 'Lv 10 → 20', upto=20) %}Crimson Flames DoT; opens the macro line.{% endcall %}
+    {% call skill('explosive-arrow', 'opt', '5th slot', upto=10) %}If a fifth slot opens at 45: keep it at 5–10 until the others are 20.{% endcall %}
+    {% call skill('arrow-storm', 'opt', 'leveling', upto=5) %}AoE for packs while leveling.{% endcall %}
+  </ul>
+{% endcall %}
+
+{% call section('macro', 'Rotation & macro', 'pve') %}
+  <p>AION 2 has two separate tools, and the build uses both:</p>
+  <ul>
+    <li><strong>Hotbar line</strong> — several skills stacked on <em>one</em> hotbar button. Pressing it casts the highest-priority skill that's ready, and in AION 2 the <strong>bottom slot has the highest priority</strong>. The cards show each line top to bottom as in the game.</li>
+    <li><strong>In-game macro</strong> — while you hold its key, it presses your hotbar lines in order and cancels animation tails. Skills on cooldown are skipped.</li>
+  </ul>
+
+  <h3>1. Hotbar lines</h3>
+  <p>Only these two lines matter; they can sit in any hotbar slots.</p>
+  <div class="hotlines">
+    {% call hotline('1', 'Griffon line', ['griffon-arrow', 'snare-shot', 'burst-arrow']) %}Snare Shot slows the target so Burst Arrow can hit.{% endcall %}
+    {% call hotline('2', 'Gale line', ['gale-arrow', 'drill-dart', 'tempest-shot']) %}Tempest Shot fills every gap.{% endcall %}
+  </div>
+
+  <h3>2. In-game macro</h3>
+  <p>Skill window → <strong>Macro</strong>: add the Griffon line, then the Gale line, <strong>10 ms</strong> each (some players find a sweet spot between 10 and 20 ms — test it). Bind the macro to <span class="key">RMB</span> in Settings → Key Settings → General → Macro.</p>
+  {{ macroseq([('Griffon line', '1 · 10 ms'), ('Gale line', '2 · 10 ms')]) }}
+  <div class="callout"><ul>
+    <li>Use <strong>AION 2 control mode</strong> — the in-game macro is restricted in AION 1 mode.</li>
+    <li>Turn <strong>skill queue on</strong> in the combat control settings.</li>
+    <li>Give {{ s('deadshot') }} a second key in Key Settings → Quick Slot (a side mouse button).</li>
+  </ul></div>
+
+  <h3>3. What you actually press</h3>
+  <ul class="presslist">
+    <li><span class="press-how">Opener</span><span class="press-what">Buffs by hand — {{ s('bow-of-blessing') }}, {{ s('supporting-fire') }} + {{ s('vaizels-authority') }} (one button, same cooldown) — then {{ s('marking-shot') }} and a fully charged {{ s('deadshot') }}.</span></li>
+    <li><span class="press-how">Hold</span><span class="press-what">{{ s('snipe') }} on <span class="key">LMB</span>, the macro on <span class="key">RMB</span> and {{ s('deadshot') }} on the side button — all three at once.</span></li>
+    <li><span class="press-how">Keep up</span><span class="press-what">{{ s('marking-shot') }} — recast when Precision drops below ~3s (watch the buff bar). Precision: +5% Perfect Chance, +300 Critical Hit, +35% Deadshot damage.</span></li>
+    <li><span class="press-how">On cooldown</span><span class="press-what">The buffs again.</span></li>
+  </ul>
+{% endcall %}
+
+{% call section('recap', 'Recap', 'pve') %}
+  <div class="callout accent"><ul>
+    <li><strong>Skills:</strong> Deadshot and Gale Arrow 20; Drill Dart, Snipe, Tempest Shot 16; the rest 12; Arrow Scattershot not at all.</li>
+    <li><strong>Stigmas:</strong> Vaizel's Authority 20 first, then Bow of Blessing, Supporting Fire, Griffon Arrow; Explosive Arrow if a 5th slot opens.</li>
+    <li><strong>Passives:</strong> Focused Eye, Hunter's Resolve, then Hunter's Soul.</li>
+    <li><strong>Stats:</strong> Accuracy to the cap, then Attack / Critical Hit.</li>
+    <li><strong>Arcana:</strong> +4 on Deadshot and Gale Arrow.</li>
+  </ul></div>
+{% endcall %}
+
+{# ============================== PvP ============================== #}
+{% call glance('pvp') %}
+  <h3>{{ t.core_skills }}</h3>
+  {{ core([('marking-shot', '12'), ('snare-shot', '16'), ('suppressing-arrow', '12'), ('deadshot', '16')]) }}
+  <h3>{{ t.stigma_loadout }}</h3>
+  {{ loadout([('mother-natures-breath', 5), ('sealing-arrow', 5), ('ambush-kick', 10), ('ensnaring-trap', 5)]) }}
+  <h3>{{ t.key_passives }}</h3>
+  {{ passives(['focused-eye', 'hunters-resolve', 'vigilant-eye']) }}
+{% endcall %}
+
+{% call section('intro-pvp', 'Overview', 'pvp') %}
+  <p>Ranger wins through <strong>spacing, control, and a well-timed charged shot</strong>. Avoid trading blows at close range: slow the target, make them spend a gap closer, then create space and fire.</p>
+  <div class="callout accent"><h3>Starter build in one sentence</h3><p>{{ s('marking-shot') }} grants Precision → {{ s('snare-shot') }} preserves distance → {{ s('sealing-arrow') }} or {{ s('suppressing-arrow') }} interrupts the answer → a fully charged {{ s('deadshot') }} finishes the damage window.</p></div>
+  <p class="note">This is a pre-launch Global Season 1 setup based on client skill data and Korean PvP experience. Recheck actual stigma slots, balance, and control chances after launch.</p>
+{% endcall %}
+
+{% call section('skills-pvp', 'Skills', 'pvp') %}
+  <p>Prioritize dependable control, movement, and survival against a counter-burst. The levels below are <em>first targets</em>, not a demand to max every skill at once.</p>
+  <ul class="skill-grid">
+    {% call skill('marking-shot', 'must', '12', [2, 3]) %}Grants Precision and moves you. At 8 choose knockback chance or longer duration; at 12 you gain another use.{% endcall %}
+    {% call skill('snare-shot', 'must', '16', [0, 3, 4]) %}Slow buys time to retreat. Level 12 adds a binding chain, and level 16 extends the control.{% endcall %}
+    {% call skill('suppressing-arrow', 'must', '12', [1, 3]) %}A stun while Precision is active. The level 12 specialization raises its chance; it is not guaranteed against players.{% endcall %}
+    {% call skill('deadshot', 'must', '16', [2, 3, 4]) %}Charge it after control. The movement specialization helps preserve spacing while charging.{% endcall %}
+    {% call skill('defiance', 'must', '16', [2, 3, 4]) %}Breaks control and grants Tenacity. Save it for a real threat rather than using it on cooldown.{% endcall %}
+    {% call skill('explosion-trap', 'opt', '16', [1, 3, 4]) %}A trap along your retreat path forces a pursuer to stop. Level 16 adds another use.{% endcall %}
+    {% call skill('burst-arrow', 'opt', '12', [0, 3]) %}Fire after slow or bind. HP absorption helps in long duels.{% endcall %}
+  </ul>
+{% endcall %}
+
+{% call section('passives-pvp', 'Passives', 'pvp') %}
+  <p>Keep {{ s('focused-eye') }} and {{ s('hunters-resolve') }} for damage. In a separate PvP preset, invest in {{ s('vigilant-eye') }} for HP and {{ s('revitalization-contract') }} as a low-health safety net. The damage versus defense balance depends on your gear and the fight format.</p>
+{% endcall %}
+
+{% call section('gear-pvp', 'Gear and arcana', 'pvp') %}
+  <div class="table-wrap"><table><thead><tr><th>Priority</th><th>Why</th></tr></thead><tbody>
+    <tr><td>Accuracy</td><td>Control and burst fail when attacks are evaded or blocked.</td></tr>
+    <tr><td>Crit resistance / HP / evasion</td><td>Help you survive an Assassin or Gladiator opener and regain distance.</td></tr>
+    <tr><td>PvP damage, attack, and crit</td><td>Add after basic durability so your counter-shot remains a threat.</td></tr>
+  </tbody></table></div>
+  <p>Do not copy Korean numeric stat caps to Global. On arcana, seek levels for {{ s('deadshot') }}, {{ s('snare-shot') }}, and {{ s('defiance') }}; once control is reliable, add damage.</p>
+{% endcall %}
+
+{% call section('stigmas-pvp', 'Stigmas', 'pvp') %}
+  <p>A cautious <strong>four-slot</strong> setup. If the max-level Global client grants another slot, add {{ s('vaizels-authority') }} for burst. Check the actual slot count before investing heavily.</p>
+  <ul class="skill-grid">
+    {% call skill('mother-natures-breath', 'must', 'Lv 5 → 20', upto=20) %}A short defensive window; level 5 removes damage over time. Save it for enemy burst.{% endcall %}
+    {% call skill('sealing-arrow', 'must', 'Lv 5 → 20', upto=20) %}A five-second seal; level 5 adds a bind chance. Use before a charged shot or against a caster.{% endcall %}
+    {% call skill('ambush-kick', 'must', 'Lv 10', upto=20) %}Knocks back and jumps away. Level 10 grants a shield on hit.{% endcall %}
+    {% call skill('ensnaring-trap', 'must', 'Lv 5', upto=20) %}A pursuer trap; level 5 opens a retreating follow-up. Keep your exit path clear.{% endcall %}
+    {% call skill('stealth', 'opt', 'swap', upto=20) %}An ambush option in place of a defensive stigma. Combat use requires the level 15 specialization.{% endcall %}
+  </ul>
+{% endcall %}
+
+{% call section('combos-pvp', 'Combos and play', 'pvp') %}
+  <h3>Against melee</h3>
+  <p>Start with {{ s('snare-shot') }} and keep {{ s('explosion-trap') }} along your retreat path. After the enemy spends a gap closer, shift with {{ s('marking-shot') }}, then control and {{ s('deadshot') }}. Save {{ s('ambush-kick') }} for escaping dangerous range.</p>
+  <h3>Against casters</h3>
+  <p>Hold {{ s('sealing-arrow') }} for a strong enemy response. After the seal, use {{ s('marking-shot') }} and charged {{ s('deadshot') }}. Never rely on one stun: player control chance is not the NPC guarantee.</p>
+  <h3>When caught</h3>
+  <p>{{ s('defiance') }} breaks control; {{ s('mother-natures-breath') }} helps survive the follow-up. Regain distance before charging again. The PvE macro cannot choose defensive timing for you.</p>
+{% endcall %}
+
+{% call section('recap-pvp', 'Recap', 'pvp') %}
+  <div class="callout accent"><ul>
+    <li><strong>Plan:</strong> slow → control → fully charged Deadshot → retreat.</li>
+    <li><strong>Skills:</strong> Marking Shot, Snare Shot, Suppressing Arrow, Deadshot, and Defiance.</li>
+    <li><strong>Stigmas:</strong> Mother Nature's Breath, Sealing Arrow, Ambush Kick, and Ensnaring Trap; Vaizel's Authority for burst or an extra slot.</li>
+    <li><strong>Verify after launch:</strong> slot count, PvP coefficients, control chances, and accuracy needs.</li>
+  </ul></div>
+{% endcall %}
+
+{# ============================ Leveling ============================ #}
+{% call section('fight-lvl', t.lvl_combat, 'lvl') %}
+  <div class="callout"><ul>
+    <li><strong>Packs:</strong> {{ s('explosion-trap') }} at your feet → {{ s('snare-shot') }} → {{ s('drill-dart') }} + {{ s('tempest-shot') }}. They walk into the trap.</li>
+    <li><strong>Elites:</strong> {{ s('marking-shot') }} (Precision) → {{ s('snare-shot') }} → {{ s('burst-arrow') }} → charged {{ s('deadshot') }}. Kite, don't tank.</li>
+    <li><strong>Low HP:</strong> Drill Dart and Burst Arrow absorb HP. Step back out of melee range before you heal up.</li>
+  </ul></div>
+{% endcall %}
+
+{% call section('macro-lvl', 'Leveling macro', 'lvl') %}
+  <p>A simpler setup for leveling and the first days at the cap, from Grobs' early-game macros. Only the skills you spam go in; buffs, stigma bursts and gap-closers stay on their own keys.</p>
+  <div class="hotlines">
+    {{ hotline('1', 'Line 1', ['griffon-arrow', 'explosive-arrow'], []) }}
+    {{ hotline('2', 'Line 2', ['drill-dart', 'gale-arrow', 'tempest-shot'], []) }}
+  </div>
+  <p>In-game macro: Line 1 → Line 2, each with a 10 ms delay. Hold your basic attack {{ s('snipe') }} on LMB <strong>and</strong> the macro key together.</p>
+  <p class="note">Once your skills reach 12–16 and specializations change their cooldowns, switch to the full setup in the PvE tab.</p>
+{% endcall %}
+
+{# ============================ Sources ============================ #}
+<section class="sources" aria-labelledby="h-sources">
+  <h2 id="h-sources">{{ t.sources }}</h2>
+  <ul>
+    <li><a href="https://www.youtube.com/watch?v=wKOm6yKuu_I" target="_blank" rel="noopener">Whelps — AION 2 Ranger guide</a> and his <a href="https://questlog.gg/aion-2/en/character-builder/AelonCommandAndTheSharpMerchant?build-id=8655" target="_blank" rel="noopener">S1 endgame PvE build on questlog</a> — the build this guide follows (skills, stigmas, macro, gear, arcana)</li>
+    <li><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ0C3iKFteGvIbgqNDnQq7bmwIaU23DvjbPa0HPSVAdOOiCeBkEq69Cn8jVMJhToJcztCRylYeTYfOk/pubhtml" target="_blank" rel="noopener">TitanTheF — AION 2 progression sheet</a> (Ranger tab) and his <a href="https://aion2t.com/ru/simulator?job=4&amp;b=8QbCF0" target="_blank" rel="noopener">45+ build on aion2t</a> — earlier global build (skill levels, leveling)</li>
+    <li><a href="https://questlog.gg/aion-2/en/db/skills/ranger" target="_blank" rel="noopener">questlog.gg</a> — skill &amp; stigma data from the global client</li>
+    <li><a href="https://7mmo.com/threads/guide-ranger-aion-2-build-pve-complet-sorts-stigmas-stuff.5771/" target="_blank" rel="noopener">7MMO</a> — full Korean PvE build (skills, stigmas, macro)</li>
+    <li><a href="https://vortexgaming.io/postdetail/722757" target="_blank" rel="noopener">Vortex Gaming</a> — Korean post-patch stigma setup</li>
+    <li><a href="https://game8.co/games/Aion-2/archives/613085" target="_blank" rel="noopener">Game8</a> — skill unlock levels, rotation basics</li>
+    <li><a href="https://gamerstogether.cz/en/aion-2-ranger-build-guide/" target="_blank" rel="noopener">Gamers Together</a> — PvP approach</li>
+    <li><a href="https://vortexgaming.io/en/postdetail/1269746" target="_blank" rel="noopener">Vortex Gaming — Ranger PvP</a> — Korean Ranger commander experience with traps, survival, and spacing</li>
+    <li>DCInside AION 2 gallery — Korean player posts on the current meta and stigmas (anonymous authors, no single link)</li>
+    <li><a href="https://nemobek.github.io/aion2-guide/" target="_blank" rel="noopener">nemobek.github.io/aion2-guide</a> (TitanTheF's table) — leveling route</li>
+    <li><a href="https://www.youtube.com/watch?v=HMod6Z4GrE0" target="_blank" rel="noopener">Grobs — AION 2 Macro Guide</a> — how hotbar lines and the in-game macro work</li>
+  </ul>
+  <p class="sources-all"><a href="{{ root }}{{ lang }}/sources/">{{ t.src_all }} →</a></p>
+</section>

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}{{ cls.name[lang] }} — {{ t.site_name }} ({% for m in ['pve', 'pvp', 'lvl'] if m not in cls.get('modes_off', []) %}{{ t['mode_' ~ m] }}{{ ', ' if not loop.last }}{% endfor %}){% endblock %}
+{% block desc %}{{ cls.pitch[lang] }}{% endblock %}
+{% block og %}{{ cls.slug }}{% endblock %}
+{% block html_attrs %} data-class="{{ cls.slug }}"{% if cls.get('modes_off') %} data-off="{{ cls.modes_off|join(' ') }}"{% endif %}{% endblock %}
+{% block body_class %}page-class accent-{{ cls.accent }}{% endblock %}
+{% block main %}
+<div class="class-backdrop" aria-hidden="true" style="--art:url('{{ root }}assets/art/{{ cls.slug }}.webp')"></div>
+<section class="class-hero" data-fx="{{ cls.slug }}">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <img class="class-hero-art" src="{{ root }}assets/art/{{ cls.slug }}.webp" alt="" aria-hidden="true" fetchpriority="high">
+  <div class="wrap class-hero-in">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ root }}{{ lang }}/">{{ t.back_home }}</a><span aria-hidden="true">/</span><span>{{ cls.name[lang] }}</span></nav>
+    <div class="class-hero-main">
+      <img class="class-hero-emblem" src="{{ root }}assets/classes/{{ cls.slug }}.webp" width="96" height="96" alt="">
+      <div>
+        <p class="kicker"><span data-only="pve">{{ t.mode_pve }}</span><span data-only="pvp">{{ t.mode_pvp }}</span><span data-only="lvl">{{ t.mode_lvl }}</span> · {{ t.home_kicker }}</p>
+        <h1>{{ cls.name[lang] }}</h1>
+        <p class="class-hero-pitch">{{ cls.pitch[lang] }}</p>
+        <p class="guide-ver"><span>{{ t.guide_updated }}: <time datetime="{{ cls.updated }}">{{ fmt_day(cls.updated, lang) }}</time></span><span>{{ t.guide_patch }}: <b>{{ cls.patch or t.patch_tbd }}</b></span>{% if cls.get('wip') %}<span class="wip-tag">{{ t.wip }}</span>{% endif %}</p>
+        {% if cls.get('src') %}<p class="guide-src">{% for m, v in cls.src.items() %}<span data-only="{{ m }}">{{ t.guide_src }}: <b>{{ v[0] }}</b> · {{ t.guide_checked }} <time datetime="{{ v[1] }}">{{ fmt_day(v[1], lang) }}</time></span>{% endfor %}</p>{% endif %}
+      </div>
+    </div>
+    <dl class="class-facts">
+      <div><dt>{{ t.role }}</dt><dd>{{ cls.role[lang] }}</dd></div>
+      <div><dt>{{ t.weapon }}</dt><dd>{{ cls.weapon[lang] }}</dd></div>
+      <div><dt>{{ t.difficulty }}</dt><dd class="diff">{% for i in range(3) %}<i class="{{ 'on' if i < cls.difficulty }}"></i>{% endfor %}<span>{{ t.diff[cls.difficulty] }}</span></dd></div>
+    </dl>
+  </div>
+</section>
+
+<div class="guidebar">
+  <div class="wrap guidebar-in">
+    <div class="mode-switch" role="radiogroup" aria-label="{{ t.mode_label }}">
+      {% for m in ['pve', 'pvp', 'lvl'] %}
+      <button type="button" role="radio" data-set-mode="{{ m }}" aria-checked="false"{% if m in cls.get('modes_off', []) %} class="is-off" aria-disabled="true" disabled{% endif %}>{{ t['mode_' ~ m] }}</button>
+      {% endfor %}
+    </div>
+    <nav class="toc-mobile" aria-label="{{ t.on_this_page }}"></nav>
+  </div>
+</div>
+
+<div class="wrap guide-layout">
+  <aside class="toc-side" aria-label="{{ t.on_this_page }}">
+    <p class="toc-title">{{ t.on_this_page }}</p>
+    <nav class="toc-list"></nav>
+  </aside>
+
+  <main id="main" class="guide">
+    <section id="progress" class="g-section tracker" data-only="lvl" data-class="{{ cls.slug }}" aria-labelledby="h-progress">
+      <div class="sec-head"><span class="sec-num" aria-hidden="true"></span><h2 id="h-progress">{{ t.lvl_progress }}</h2></div>
+      <div class="tracker-bar">
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="{{ steps|length }}" aria-valuenow="0" aria-label="{{ t.lvl_progress }}"><span></span></div>
+        <span class="progress-text"><b class="progress-count">0</b>/{{ steps|length }} {{ t.lvl_done }}</span>
+        <button type="button" class="btn btn-ghost btn-sm tracker-reset" data-confirm="{{ t.lvl_reset_confirm }}">{{ t.lvl_reset }}</button>
+      </div>
+      <p class="note">{{ t.lvl_hint }}</p>
+      <ol class="steps">
+        {% for st in steps %}
+        <li class="step step-{{ st.kind }}">
+          <label>
+            <input type="checkbox" data-step="{{ st.id }}">
+            <span class="step-box" aria-hidden="true"></span>
+            <span class="step-when">{{ st.when }}</span>
+            <span class="step-text">
+              <span class="step-tag">{{ t.lvl_class if st.kind == 'class' else t.lvl_general }}</span>
+              {% for sl in st.skills %}<img src="{{ icon_url(sl) }}" width="22" height="22" alt="" loading="lazy" data-sk="{{ sl }}">{% endfor %}
+              {{ st.text|safe }}
+            </span>
+          </label>
+        </li>
+        {% endfor %}
+      </ol>
+    </section>
+
+    {% if cls.get('wip') %}
+    <div class="callout wip-note" role="note"><h3><span class="wip-tag">{{ t.wip }}</span> {{ t.wip_title }}</h3><p>{{ t.wip_text }}</p></div>
+    {% endif %}
+    {% for m in cls.get('wip_modes', []) %}
+    <div class="callout wip-note" role="note" data-only="{{ m }}"><h3><span class="wip-tag">{{ t.wip }}</span> {{ t['wip_mode_' ~ m] }} · {{ t.wip_mode_title }}</h3><p>{{ t.wip_mode_text }}</p></div>
+    {% endfor %}
+    {% include content_tpl %}
+    {% if SITE.repo %}<p class="report-box"><a class="btn btn-ghost btn-sm report-link" href="{{ SITE.repo }}/issues/new" target="_blank" rel="noopener" data-body="{{ t.report_body }}" data-page="{{ lang }}/{{ path }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+      {{ t.report }}</a> <span class="note">{{ t.report_hint }}</span></p>{% endif %}
+    <script type="application/json" id="sk-data" data-cd="{{ t.tip_cd }}" data-s="{{ t.tip_s }}" data-active="{{ t.tip_cat.active }}" data-stigma="{{ t.tip_cat.stigma }}" data-passive="{{ t.tip_cat.passive }}">{{ tooltip_json(cls.slug, lang) }}</script>
+  </main>
+</div>
+{% endblock %}
